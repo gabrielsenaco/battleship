@@ -74,13 +74,10 @@ export const Gameboard = () => {
     return true
   }
 
-  function placeShipPart(ship, x, y) {
+  function placeShipPart (ship, x, y) {
     _isOnRange(x, y)
-    if (!canPutShipWithAroundFree(ship, x, y)) {
+    if (!canPutShipWithAroundFree(ship, x, y, true)) {
       throw new Error('Cannot place ship because around is not empty.')
-    }
-    if (!canPlaceShip(ship, x, y)) {
-      throw new Error('Cannot place ship on invalid grid position.')
     }
     grid[x][y].ship = ship
   }
