@@ -56,9 +56,15 @@ export const Gameboard = () => {
     return true
   }
 
-  function canPutShipWithAroundFree (ship, x, y) {
+  function canPutShipWithAroundFree (ship, x, y, isSameShip = false) {
     const target = ship.isHorizontal() ? x : y
     for (let i = target; i < ship.getLength() + target; i++) {
+      try {
+        const point = ship.isHorizontal() ? grid[i - 1][y] : grid[x][i - 1]
+        if (isSameShip && point.ship && point.ship === ship) {
+          return true
+        }
+      } catch (_) {}
       const empty = ship.isHorizontal()
         ? aroundIsEmpty(i, y)
         : aroundIsEmpty(x, i)
