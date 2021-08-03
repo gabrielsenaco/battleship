@@ -21,8 +21,13 @@ export const Gameboard = () => {
     return true
   }
 
-  function canPlaceShip (ship, x, y) {
+  function fixShipLength (ship) {
     const length = ship.getLength()
+    return length === 1 ? 0 : length
+  }
+
+  function canPlaceShip (ship, x, y) {
+    const length = fixShipLength(ship)
     const testGrid = [...grid]
     const shipPart = ship.isHorizontal()
       ? testGrid[x + length]
@@ -58,7 +63,8 @@ export const Gameboard = () => {
 
   function canPutShipWithAroundFree (ship, x, y, isSameShip = false) {
     const target = ship.isHorizontal() ? x : y
-    for (let i = target; i < ship.getLength() + target; i++) {
+    const length = fixShipLength(ship)
+    for (let i = target; i <= length + target; i++) {
       try {
         const point = ship.isHorizontal() ? grid[i - 1][y] : grid[x][i - 1]
         if (isSameShip && point.ship && point.ship === ship) {
@@ -91,7 +97,8 @@ export const Gameboard = () => {
       throw new Error('Cannot place ship on invalid grid position.')
     }
     const target = ship.isHorizontal() ? x : y
-    for (let i = target; i < ship.getLength() + target; i++) {
+    const length = fixShipLength(ship)
+    for (let i = target; i <= length + target; i++) {
       if (ship.isHorizontal()) {
         grid[i][y].ship = ship
       } else {
@@ -107,8 +114,8 @@ export const Gameboard = () => {
 
   function getShipPartsInGrid (ship) {
     const shipParts = []
-    for (let x = 0; x < grid.length - 1; x++) {
-      for (let y = 0; y < grid.length - 1; y++) {
+    for (let x = 0; x < grid.length; x++) {
+      for (let y = 0; y < grid.length; y++) {
         const point = grid[x][y]
         const pointShip = point.ship
         if (pointShip && pointShip === ship) {
