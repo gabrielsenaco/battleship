@@ -13,8 +13,10 @@ test('When send attack, attack only the enemy gameboard.', () => {
   const enemyMainGameboard = Gameboard()
   const enemyShip = Ship(5)
   enemyMainGameboard.placeShip(enemyShip, 4, 6)
-  player.attack(enemyMainGameboard, 4, 6)
-  player.attack(enemyMainGameboard, 8, 6)
+  const respose1 = enemyMainGameboard.receiveAttack(4, 6)
+  player.attack(respose1, 4, 6)
+  const response2 = enemyMainGameboard.receiveAttack(8, 6)
+  player.attack(response2, 8, 6)
   const enemyHitted = player.getEnemyGameboard().getPosition(4, 6).hitted
   const playerHitted = player.getGameboard().getPosition(4, 6).hitted
 
