@@ -184,3 +184,16 @@ test('Prevent put ships in position that is outside of grid', () => {
     'Cannot place ship on invalid grid position.'
   )
 })
+
+test('Get correct total of ships.', () => {
+  const board = Gameboard()
+  const ship1 = Ship(1)
+  const ship2 = Ship(4)
+  const ship3 = Ship(5)
+
+  board.placeShip(ship1, 8, 7)
+  board.placeShip(ship2, 3, 1)
+  board.placeShip(ship3, 4, 3)
+
+  expect(board.getShipsPoints().length).toBe(3)
+})
