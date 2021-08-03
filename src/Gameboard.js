@@ -152,18 +152,30 @@ export const Gameboard = () => {
     return response
   }
 
+  function getShipsPoints () {
+    const points = []
+    for (const point of grid.flat()) {
+      const pointShip = point.ship
+      if (pointShip && !points.some(pointArr => pointArr.ship === pointShip)) {
+        points.push(point)
+      }
+    }
+    return points
+  }
+
+  function getFlatGrid () {
+    return grid.flat()
+  }
+
   function isAllShipsSunk () {
-    for (let x = 0; x < grid.length - 1; x++) {
-      for (let y = 0; y < grid.length - 1; y++) {
-        const point = grid[x][y]
-        const pointShip = point.ship
-        if (pointShip && pointShip.isSunk()) {
-          continue
-        } else if (!pointShip) {
-          continue
-        } else {
-          return false
-        }
+    for (const point of grid.flat()) {
+      const pointShip = point.ship
+      if (pointShip && pointShip.isSunk()) {
+        continue
+      } else if (!pointShip) {
+        continue
+      } else {
+        return false
       }
     }
     return true
@@ -174,6 +186,8 @@ export const Gameboard = () => {
     placeShip,
     placeShipPart,
     getPosition,
-    receiveAttack
+    receiveAttack,
+    getShipsPoints,
+    getFlatGrid
   }
 }
