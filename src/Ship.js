@@ -28,7 +28,7 @@ export const Ship = (length, horizontal = true) => {
   }
 
   function getHits () {
-    return parts.filter((part) => part).length
+    return parts.filter(part => part).length
   }
 
   function isHorizontal () {
