@@ -1,11 +1,11 @@
 import { Gameboard } from './Gameboard'
+import { Ship } from './Ship'
 
 export const Player = () => {
   const enemyGameboard = Gameboard()
   const gameboard = Gameboard()
 
-  function attack (enemyMainGameboard, x, y) {
-    const response = enemyMainGameboard.receiveAttack(x, y)
+  function attack (response, x, y) {
     if (response.ship) {
       enemyGameboard.placeShipPart(response.ship, x, y)
     }
