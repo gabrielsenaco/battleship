@@ -1,4 +1,4 @@
-export const Ship = (length, horizontal = true) => {
+export const Ship = (name, length, horizontal = true) => {
   const parts = _build()
 
   function _build () {
@@ -13,6 +13,10 @@ export const Ship = (length, horizontal = true) => {
     if (position < 0) return
     parts[position] = true
     return true
+  }
+
+  function getName () {
+    return name
   }
 
   function isSunk () {
@@ -41,6 +45,7 @@ export const Ship = (length, horizontal = true) => {
     getParts,
     hit,
     getHits,
-    isSunk
+    isSunk,
+    getName
   }
 }
