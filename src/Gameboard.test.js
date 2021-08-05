@@ -12,7 +12,7 @@ import { Gameboard } from './Gameboard'
 
 test('Place Ship on correct position', () => {
   const board = Gameboard()
-  const ship = Ship(2)
+  const ship = Ship('Testing', 2)
   board.placeShip(ship, 0, 2)
   const expectBoardPosition = {
     hitted: false,
@@ -27,9 +27,9 @@ test('Place Ship on correct position', () => {
 
 test('Prevent Place Ship without around free', () => {
   const board = Gameboard()
-  const ship = Ship(3)
+  const ship = Ship('Testing', 3)
   board.placeShip(ship, 0, 6)
-  const ship3 = Ship(5)
+  const ship3 = Ship('Testing', 5)
   expect(() => board.placeShip(ship3, 3, 6)).toThrow(
     'Cannot place ship because around is not empty.'
   )
@@ -48,7 +48,7 @@ test('Get ocean when has no ship', () => {
 
 test('Check if attack hit the Ship', () => {
   const board = Gameboard()
-  const ship = Ship(5)
+  const ship = Ship('Testing', 5)
   board.placeShip(ship, 4, 3)
   board.receiveAttack(6, 3)
   const expectBoardPosition = {
@@ -81,7 +81,7 @@ test('Check if attack hit the ocean', () => {
 
 test('Get the response attack of the Ship', () => {
   const board = Gameboard()
-  const ship = Ship(1)
+  const ship = Ship('Testing', 1)
   board.placeShip(ship, 4, 3)
   const response = board.receiveAttack(4, 3)
 
@@ -107,7 +107,7 @@ test('Get the response attack of the ocean', () => {
 
 test('Is the Ship positioned horizontally?', () => {
   const board = Gameboard()
-  const ship = Ship(4)
+  const ship = Ship('Testing', 4)
   // ship, x, y, isHorinzotal
   board.placeShip(ship, 5, 3)
   const expectBoardPosition = {
@@ -120,7 +120,7 @@ test('Is the Ship positioned horizontally?', () => {
 
 test('Is the Ship positioned vertically?', () => {
   const board = Gameboard()
-  const ship = Ship(2, false)
+  const ship = Ship('Testing', 2, false)
   // ship, x, y, isHorinzotal
   board.placeShip(ship, 6, 2)
   const expectBoardPosition = {
@@ -134,7 +134,7 @@ test('Is the Ship positioned vertically?', () => {
 
 test('The Ship with 2 of length is sunk after attack?', () => {
   const board = Gameboard()
-  const ship = Ship(2)
+  const ship = Ship('Testing', 2)
   board.placeShip(ship, 7, 2)
   const response = board.receiveAttack(7, 2)
 
@@ -148,7 +148,7 @@ test('The Ship with 2 of length is sunk after attack?', () => {
 
 test('The Ship with 1 of length is sunk after attack?', () => {
   const board = Gameboard()
-  const ship = Ship(1)
+  const ship = Ship('Testing', 1)
   board.placeShip(ship, 7, 2)
   const response = board.receiveAttack(7, 2)
 
@@ -162,11 +162,11 @@ test('The Ship with 1 of length is sunk after attack?', () => {
 
 test('Attack all ships return true value.', () => {
   const board = Gameboard()
-  const ship1 = Ship(1, false)
+  const ship1 = Ship('Testing', 1, false)
   board.placeShip(ship1, 2, 7)
-  const ship2 = Ship(1)
+  const ship2 = Ship('Testing', 1)
   board.placeShip(ship2, 5, 6)
-  const ship3 = Ship(1, false)
+  const ship3 = Ship('Testing', 1, false)
   board.placeShip(ship3, 6, 4)
   board.receiveAttack(2, 7)
   board.receiveAttack(5, 6)
@@ -176,10 +176,10 @@ test('Attack all ships return true value.', () => {
 
 test('Prevent put ships in position that is outside of grid', () => {
   const board = Gameboard()
-  const ship1 = Ship(3)
+  const ship1 = Ship('Testing', 3)
 
   board.placeShip(ship1, 3, 7)
-  const ship2 = Ship(5, true)
+  const ship2 = Ship('Testing', 5, true)
   expect(() => board.placeShip(ship2, 9, 7)).toThrow(
     'Cannot place ship on invalid grid position.'
   )
@@ -187,9 +187,9 @@ test('Prevent put ships in position that is outside of grid', () => {
 
 test('Get correct total of ships.', () => {
   const board = Gameboard()
-  const ship1 = Ship(1)
-  const ship2 = Ship(4)
-  const ship3 = Ship(5)
+  const ship1 = Ship('Testing', 1)
+  const ship2 = Ship('Testing', 4)
+  const ship3 = Ship('Testing', 5)
 
   board.placeShip(ship1, 8, 7)
   board.placeShip(ship2, 3, 1)
