@@ -12,7 +12,7 @@ test("Get two gameboards: Player's gameboard and enemy's board", () => {
 test('When send attack, attack only the enemy gameboard.', () => {
   const player = Player()
   const enemyMainGameboard = Gameboard()
-  const enemyShip = Ship(5)
+  const enemyShip = Ship('Testing', 5)
   enemyMainGameboard.placeShip(enemyShip, 4, 6)
   const respose1 = enemyMainGameboard.receiveAttack(4, 6)
   player.attack(respose1, 4, 6)

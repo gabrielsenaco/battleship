@@ -1,7 +1,7 @@
 import { Gameboard } from './Gameboard'
 import { Ship } from './Ship'
 
-export const Player = () => {
+export const Player = (name) => {
   const enemyGameboard = Gameboard()
   const gameboard = Gameboard()
 
@@ -16,6 +16,10 @@ export const Player = () => {
     return gameboard
   }
 
+  function getName () {
+    return name
+  }
+
   function getEnemyGameboard () {
     return enemyGameboard
   }
@@ -23,12 +27,13 @@ export const Player = () => {
   return {
     attack,
     getGameboard,
-    getEnemyGameboard
+    getEnemyGameboard,
+    getName
   }
 }
 
-export const ComputerPlayer = () => {
-  const { attack, getGameboard, getEnemyGameboard } = Player()
+export const ComputerPlayer = (name) => {
+  const { attack, getGameboard, getEnemyGameboard, getName } = Player(name)
 
   function getRandomTrueFalse () {
     return Math.random() >= 0.5
@@ -76,6 +81,7 @@ export const ComputerPlayer = () => {
     getGameboard,
     getEnemyGameboard,
     buildGameboardScheme,
-    betterAttack
+    betterAttack,
+    getName
   }
 }
