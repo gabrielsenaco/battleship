@@ -1,0 +1,149 @@
+@import "reset.css";
+
+body {
+  margin: 0.3rem;
+}
+
+:root {
+  --grid-item-size: 25px;
+  --grid-size: 250px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: '. n'
+                       'l g';
+  grid-gap: 0;
+  max-width: var(--grid-size);
+}
+
+.grid-container.big {
+  --grid-item-size: 35px;
+  --grid-size: 350px;
+}
+
+
+.ships[rotation='vertical'] {
+  transform: rotate(90deg);
+  display: inline-block;
+}
+
+.ships[rotation='horizontal'] {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+.ship {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.ship-component {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: var(--grid-item-size);
+  height: var(--grid-item-size);
+  border: 1px solid black;
+}
+
+.grid {
+  grid-area: g;
+  display: grid;
+  grid-template-columns: repeat(10, var(--grid-item-size));
+  grid-template-rows: repeat(10, var(--grid-item-size));
+background: radial-gradient(50% 50% at 50% 50%, #2389DA 0%, rgba(28, 163, 236, 0.5) 100%);
+  max-width: var(--grid-size);
+}
+
+.grid-numbers-index {
+  grid-area: n;
+  display: flex;
+}
+
+.grid-numbers-index .grid-item-index {
+  min-width: var(--grid-item-size);
+}
+
+.grid-letters-index {
+  grid-area: l;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-letters-index .grid-item-index {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.grid-item {
+  background: none;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.grid-item-index {
+  background: none;
+  border: none;
+}
+
+.grid .grid-item:hover {
+  background-color: #e71d36;
+}
+
+.grid-item.hitted  {
+  background-color: blue;
+}
+
+.grid-item.ship-part {
+  background-color: red;
+}
+
+.grid-item.ship-part.hitted {
+  background: linear-gradient(red, blue);
+}
+
+.hidden {
+  display: none !important;
+}
+
+#pass-device {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: skyblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10000;
+}
+
+#gameboards {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameboard-section {
+  display:   flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 1rem;
+  margin-left: 0.5rem;
+}
+
+.gameboard-section.target {
+}
+
+.gameboard-section.owner {
+  position: fixed;
+  bottom: 0;
+}
+#setup-players li {
+  list-style: decimal;
+  margin-left: 2rem;
+}
