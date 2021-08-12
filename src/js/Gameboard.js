@@ -1,6 +1,6 @@
 // On x and y, the number starts on 0 and end on 9.
 export const Gameboard = () => {
-  const grid = _build()
+  let grid = _build()
 
   function _build () {
     const array = []
@@ -200,6 +200,14 @@ export const Gameboard = () => {
     return true
   }
 
+  function reset () {
+    grid = _build()
+  }
+
+  function hasPlacedAllShips (amount_ships) {
+    return getShipsPoints().length === amount_ships
+  }
+
   return {
     isAllShipsSunk,
     placeShip,
@@ -209,6 +217,8 @@ export const Gameboard = () => {
     getShipsPoints,
     getFlatGrid,
     getNextShipPart,
-    getFirstShipPartPosition
+    getFirstShipPartPosition,
+    reset,
+    hasPlacedAllShips
   }
 }
