@@ -10,7 +10,9 @@ export const Ship = (name, length, horizontal = true) => {
   }
 
   function hit (position) {
-    if (position < 0) { throw new Error('Invalid hit position number. Must be 0 or more') }
+    if (position < 0) {
+      throw new Error('Invalid hit position number. Must be 0 or more')
+    }
     if (position > length - 1) {
       throw new Error(
         'Invalid hit position. This number overflow the ship length.'
