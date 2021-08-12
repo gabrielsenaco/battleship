@@ -3,11 +3,13 @@ import { TOPIC } from './topics'
 import { createElement } from './utils'
 import { Player, ComputerPlayer } from './Player'
 
-const createPlayerSetupForm = (listener) => {
+const createPlayerSetupForm = listener => {
   let form
-  
+
   function _removeOldForms () {
-    Array.from(document.querySelectorAll('#setup-players')).forEach((element) => element.remove())
+    Array.from(document.querySelectorAll('#setup-players')).forEach(element =>
+      element.remove()
+    )
   }
 
   function _build () {
@@ -63,13 +65,16 @@ const createPlayerSetupForm = (listener) => {
 function setupPlayers (event) {
   const elements = event.target.elements
   const playerList = []
-  const formPlayers = [{
-    name: elements['player-1-name'].value,
-    bot: elements['player-1-bot'].checked
-  }, {
-    name: elements['player-2-name'].value,
-    bot: elements['player-2-bot'].checked
-  }]
+  const formPlayers = [
+    {
+      name: elements['player-1-name'].value,
+      bot: elements['player-1-bot'].checked
+    },
+    {
+      name: elements['player-2-name'].value,
+      bot: elements['player-2-bot'].checked
+    }
+  ]
   for (const player of formPlayers) {
     playerList.push(buildPlayer(player.name, player.bot))
   }
