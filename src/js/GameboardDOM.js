@@ -2,9 +2,13 @@ import PubSub from 'pubsub-js'
 import { TOPIC } from './topics'
 import { createElement } from './utils'
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-const mainDOM = createElement('main', null, 'gameboards', document.body)
 
-export function buildGameboardDOM (bigSize, enemy, buildSection = true) {
+export function buildGameboardDOM (
+  bigSize,
+  enemy,
+  ownerName,
+  buildSection = true
+) {
   let containerClassName = 'grid-container'
   containerClassName += bigSize ? ' big' : ''
   const gridContainer = createElement('div', containerClassName, null)
@@ -52,14 +56,20 @@ export function buildGameboardDOM (bigSize, enemy, buildSection = true) {
   }
 
   if (buildSection) {
-    const section = createGameboardSection(gridContainer, enemy)
+    const section = createGameboardSection(gridContainer, enemy, ownerName)
     return { section, container: gridContainer, grid: gridDOM }
   }
   return { container: gridContainer, grid: gridDOM }
 }
 
-export function buildGameboardDOMByModel (big, enemy, gameBoardModel) {
-  const gameboardDOM = buildGameboardDOM(big, enemy)
+export function buildGameboardDOMByModel (
+  big,
+  enemy,
+  gameBoardModel,
+  playerName,
+  buildSection = true
+) {
+  const gameboardDOM = buildGameboardDOM(big, enemy, playerName, buildSection)
   updateGameboardDOMByModel(gameboardDOM, gameBoardModel)
   return gameboardDOM
 }
@@ -113,14 +123,22 @@ function requestToHideGameboard (topic, player) {
   PubSub.publishSync(TOPIC.HIDE_GAMEBOARD, player.enemyGameboardDOM)
 }
 
-function createGameboardSection (gridContainer, isEnemyGameboard) {
+function getMainDOM () {
+  let mainDOM = document.getElementById('gameboards')
+  if (!mainDOM) {
+    mainDOM = createElement('main', null, 'gameboards', document.body)
+  }
+  return mainDOM
+}
+
+function createGameboardSection (gridContainer, isEnemyGameboard, ownerName) {
   let sectionClass = 'gameboard-section '
   sectionClass += isEnemyGameboard ? 'target' : 'owner'
-  const section = createElement('section', sectionClass, null, mainDOM)
+  const section = createElement('section', sectionClass, null, getMainDOM())
   const titleDOM = createElement('p', 'gameboard-title', null, section)
   titleDOM.textContent = isEnemyGameboard
     ? 'Target Gameboard'
-    : 'Your Gameboard'
+    : `${ownerName + ',' || ''} Your Gameboard`
   if (isEnemyGameboard) {
     gridContainer.classList.add('big')
   }
