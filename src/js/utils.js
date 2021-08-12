@@ -18,3 +18,11 @@ export function createElement (tag, className, id, parentNode = null) {
   if (parentNode) parentNode.appendChild(element)
   return element
 }
+
+export function getValidTopParentById (id, startNode, depth = 0) {
+  if (depth > 30) return null
+  if (startNode && startNode.id.toUpperCase() === id.toUpperCase()) {
+    return startNode
+  }
+  return getValidTopParentById(id, startNode.parentNode, ++depth)
+}
