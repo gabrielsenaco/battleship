@@ -4,13 +4,20 @@ import { buildGameboardDOMByModel } from './GameboardDOM'
 
 export const PlayerGame = (object, bot) => {
   const enemyGameboardDOM = buildGameboardDOMByModel(
-    false, true,
-    object.getEnemyGameboard()
+    false,
+    true,
+    object.getEnemyGameboard(),
+    null
   )
 
   let gameboardDOM
   if (!bot) {
-    gameboardDOM = buildGameboardDOMByModel(false, false, object.getGameboard())
+    gameboardDOM = buildGameboardDOMByModel(
+      false,
+      false,
+      object.getGameboard(),
+      object.getName()
+    )
     enemyGameboardDOM.grid.addEventListener(
       'click',
       listenToGameboardClick.bind(event, object)
