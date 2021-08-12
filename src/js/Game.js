@@ -5,7 +5,7 @@ import { isValidPlayer, isValidComputerPlayer } from './PlayerValidator'
 import { PlayerGame } from './PlayerDOM'
 import { fetchPlayerOption } from './PlayerOptionController'
 
-export default function init (playerList) {
+function init (topic, playerList) {
   if (playerList.length !== 2) {
     throw new Error('Invalid player length. It only takes two players.')
   }
@@ -114,3 +114,5 @@ function passDevice (playerTurn, lastPlayerTurn, valid) {
     PubSub.publishSync(TOPIC.PASS_DEVICE, playerTurn)
   }
 }
+
+PubSub.subscribe(TOPIC.START_GAME, init)
