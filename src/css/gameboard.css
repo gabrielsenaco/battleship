@@ -1,0 +1,125 @@
+.grid-container {
+  display: grid;
+  grid-template-areas: '. n'
+                       'l g';
+  grid-gap: 0;
+  max-width: var(--grid-size);
+  max-height: var(--grid-size);
+}
+
+.grid-container.big {
+  --grid-item-size: 2.1875rem;
+  --grid-size: 21.875rem;
+}
+
+.ship-component {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: var(--grid-item-size);
+  height: var(--grid-item-size);
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+.grid {
+  grid-area: g;
+  display: grid;
+  grid-template-columns: repeat(10, var(--grid-item-size));
+  grid-template-rows: repeat(10, var(--grid-item-size));
+background: radial-gradient(50% 50% at 50% 50%, #2389DA 0%, rgba(28, 163, 236, 0.5) 100%);
+  max-width: var(--grid-size);
+}
+
+.grid-numbers-index {
+  grid-area: n;
+  display: flex;
+}
+
+.grid-numbers-index .grid-item-index {
+  min-width: var(--grid-item-size);
+}
+
+.grid-letters-index {
+  grid-area: l;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-letters-index .grid-item-index {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.grid-item {
+  border: 1px solid black;
+  text-align: center;
+  margin-left: -1px !important;
+  margin-top: -1px !important;
+  cursor: pointer;
+}
+
+.grid-item.ship-component {
+  border: none;
+}
+
+.grid-item-index {
+  background: none;
+  border: none;
+  cursor: default;
+  user-select: none;
+  color: var(--color-black);
+}
+
+body[game='started'] .grid-item-index {
+  color: var(--color-white);
+}
+
+.grid .grid-item:hover {
+  background-color: #e71d36;
+}
+
+#gameboards {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameboard-section {
+  display:   flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 1rem;
+  margin-left: 0.5rem;
+}
+
+.gameboard-section.target {
+}
+
+.gameboard-section.owner {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+@media(max-width: 767px) {
+  .gameboard-section.owner {
+    display: block;
+    position: relative;
+  }
+}
+
+.gameboard-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+
+body[game='started'] {
+  background-color: var(--color-black);
+}

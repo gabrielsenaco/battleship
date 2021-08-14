@@ -1,0 +1,73 @@
+#ships-setup {
+  display: grid;
+  grid-template-areas: 'title              title    '
+                       'ships              gameboard'
+                       'actions gameboard           '
+                       'start-game-title   start-game-title'
+                       'start-game-btn     start-game-btn ';
+
+}
+
+@media(max-width: 767px) {
+  #ships-setup {
+    grid-template-areas: 'title'
+                        'ships'
+                        'gameboard'
+                        'actions'
+                        'start-game-title'
+                        'start-game-btn';
+  }
+  #ships {
+    display: flex;
+    flex-direction: row;
+    min-height: 0 !important;
+  }
+
+}
+#ships-container {
+  grid-area: ships;
+}
+
+#action-button-container {
+  grid-area: actions;
+}
+
+#ships-setup .grid-container {
+  grid-area: gameboard;
+}
+
+#ships-setup .title {
+  grid-area: title;
+}
+
+#ships-setup .start-title {
+  grid-area: start-game-title;
+}
+
+#ships-setup .start-game-btn {
+  grid-area: start-game-btn;
+}
+
+#ships {
+  display: flex;
+  flex-direction: row;
+  min-height: 18.75rem;
+}
+
+#ships[data-orientation='vertical']{
+  flex-direction: column;
+}
+
+#ships[data-orientation='vertical'] .ship{
+  display: flex;
+  flex-direction: row;
+}
+
+#ships[data-orientation='horizontal'] .ship{
+  display: flex;
+  flex-direction: column;
+}
+
+.ship {
+  margin: 0.5rem;
+}

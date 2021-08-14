@@ -1,0 +1,54 @@
+#setup-players li {
+  list-style: decimal;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-light-blue);
+}
+
+#setup-players li:last-child {
+  margin-bottom: 0;
+}
+
+#setup-players {
+  /*max-width: 50%;*/
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+#setup-players ol {
+  background-color: var(--color-black);
+  border: 0.13rem solid var(--color-light-blue);
+  padding: 1rem;
+  box-shadow: var(--shadow-card);
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+#setup-players .player-label{
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+#setup-players input{
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 0.06rem solid var(--color-light-blue);
+  font-size: 1.3rem;
+  color: var(--color-white);
+}
+
+.btn.confirm-form{
+  padding: 1rem;
+  min-width: 100%;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  margin-left: 0 !important;
+}
+
+.btn:hover {
+  box-shadow: var(--shadow-card-hover);
+  color: var(--color-white);
+}

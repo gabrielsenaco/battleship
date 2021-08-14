@@ -1,0 +1,31 @@
+.bg-ship_front_vertical {
+  background: url('assets/ship-front-vertical.png');
+}
+
+.bg-ship_front_horizontal {
+  background: url('assets/ship-front-horizontal.png');
+}
+
+.bg-ship_bottom_vertical {
+  background: url('assets/ship-bottom-vertical.png');
+}
+
+.bg-ship_bottom_horizontal {
+  background: url('assets/ship-bottom-horizontal.png');
+}
+
+.bg-ship_body {
+  background: url('assets/ship-body.png');
+}
+
+.bg-hitted {
+  background: url('assets/ocean-hitted.png');
+}
+
+.bg-ship_hitted {
+  background: url('assets/ship-hitted.png');
+}
+
+.bg-hitted, .bg-ship_hitted {
+  background-position: center !important;
+}

@@ -1,149 +1,72 @@
 @import "reset.css";
-
-body {
-  margin: 0.3rem;
-}
+@import 'gameboard.css';
+@import 'ship_setup.css';
+@import 'ship_images';
+@import 'pass_device.css';
+@import 'setup_players.css';
 
 :root {
-  --grid-item-size: 25px;
-  --grid-size: 250px;
+  --grid-item-size: 1.5625rem;
+  --grid-size: 15.625rem;
+
+  --color-black: #293241;
+  --color-white: #FAF9F9;
+  --color-dark-blue: #001D3D;
+  --color-light-blue: #118AB2;
+  --color-water-blue: #1CA3EC;
+  --color-brown: #CB997E;
+
+  --shadow-card: 0 0.38rem 0.38rem rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: 0 0.2rem 0.2rem var(--color-light-blue);
+  --block-shadow-card: 0px 0.25rem 0px rgba(17, 138, 178, 0.5);
 }
 
-.grid-container {
-  display: grid;
-  grid-template-areas: '. n'
-                       'l g';
-  grid-gap: 0;
-  max-width: var(--grid-size);
-}
-
-.grid-container.big {
-  --grid-item-size: 35px;
-  --grid-size: 350px;
-}
-
-
-.ships[rotation='vertical'] {
-  transform: rotate(90deg);
-  display: inline-block;
-}
-
-.ships[rotation='horizontal'] {
-  transform: rotate(180deg);
-  display: inline-block;
-}
-
-.ship {
-  display: inline-block;
-  margin: 0.5rem;
-}
-
-.ship-component {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: var(--grid-item-size);
-  height: var(--grid-item-size);
-  border: 1px solid black;
-}
-
-.grid {
-  grid-area: g;
-  display: grid;
-  grid-template-columns: repeat(10, var(--grid-item-size));
-  grid-template-rows: repeat(10, var(--grid-item-size));
-background: radial-gradient(50% 50% at 50% 50%, #2389DA 0%, rgba(28, 163, 236, 0.5) 100%);
-  max-width: var(--grid-size);
-}
-
-.grid-numbers-index {
-  grid-area: n;
+body {
+  font-family: 'Electrolize', sans-serif;
+  background: url('assets/wave.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-attachment: fixed;
   display: flex;
-}
-
-.grid-numbers-index .grid-item-index {
-  min-width: var(--grid-item-size);
-}
-
-.grid-letters-index {
-  grid-area: l;
-  display: flex;
-
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.grid-letters-index .grid-item-index {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.grid-item {
-  background: none;
-  border: 1px solid black;
-  text-align: center;
-}
-
-.grid-item-index {
-  background: none;
-  border: none;
-}
-
-.grid .grid-item:hover {
-  background-color: #e71d36;
-}
-
-.grid-item.hitted  {
-  background-color: blue;
-}
-
-.grid-item.ship-part {
-  background-color: red;
-}
-
-.grid-item.ship-part.hitted {
-  background: linear-gradient(red, blue);
+  flex-direction: column;
 }
 
 .hidden {
   display: none !important;
 }
 
-#pass-device {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: skyblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 10000;
+.title {
+  font-size: 2.25rem;
+}
+.subtitle {
+  font-size: 2.15rem;
 }
 
-#gameboards {
-  display: flex;
-  flex-direction: column;
+.title, .subtitle {
+  margin: 1rem 0;
+  text-transform: uppercase;
+  color: var(--color-dark-blue);
 }
 
-.gameboard-section {
-  display:   flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.btn {
+  background-color: var(--color-black);
+  border: 0.13rem solid var(--color-light-blue);
+  color: var(--color-light-blue);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  box-shadow: var(--block-shadow-card);
+  font-size: 1.3rem;
   margin: 1rem 1rem;
-  margin-left: 0.5rem;
 }
 
-.gameboard-section.target {
+.btn:first-child {
+  margin-left: 0;
 }
 
-.gameboard-section.owner {
-  position: fixed;
-  bottom: 0;
-}
-#setup-players li {
-  list-style: decimal;
-  margin-left: 2rem;
+.btn:last-child {
+  margin-right: 0;
 }
