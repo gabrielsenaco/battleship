@@ -15,6 +15,8 @@
   --color-light-blue: #118AB2;
   --color-water-blue: #1CA3EC;
   --color-brown: #CB997E;
+  --color-green: #2a9d8f;
+  --color-light-green: #46cebd;
 
   --shadow-card: 0 0.38rem 0.38rem rgba(0, 0, 0, 0.25);
   --shadow-card-hover: 0 0.2rem 0.2rem var(--color-light-blue);
