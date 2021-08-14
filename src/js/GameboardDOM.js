@@ -1,6 +1,7 @@
 import PubSub from 'pubsub-js'
 import { TOPIC } from './topics'
 import { createElement } from './utils'
+import {getValidBottomShipImage, getValidFrontShipImage, getValidBodyShipImage, getValidHittedShipImage} from './ShipDOM'
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
 export function buildGameboardDOM (
@@ -78,19 +79,32 @@ export function updateGameboardDOMByModel (gameboardDOM, gameBoardModel) {
   if (!gameboardDOM || !gameBoardModel) return
   gameBoardModel.getFlatGrid().forEach((gridItem, index) => {
     const itemDOM = gameboardDOM.grid.children[index]
-    if (gridItem.hitted) itemDOM.classList.add('hitted')
+    if (gridItem.hitted) {
+      itemDOM.classList.add('hitted')
+      if (!gridItem.ship) {
+        itemDOM.classList.add(getValidHittedImage())
+        return
+      }
+    }
 
     const x = parseInt(itemDOM.getAttribute('data-x'))
     const y = parseInt(itemDOM.getAttribute('data-y'))
     if (gridItem.ship) {
-      itemDOM.classList.add('ship-part')
+      itemDOM.classList.add('ship-component')
+      if (gridItem.hitted) {
+        itemDOM.classList.add(getValidHittedShipImage())
+        return
+      }
       const next = gameBoardModel.getNextShipPart(gridItem.ship, x, y)
       const first = gameBoardModel.getFirstShipPartPosition(gridItem.ship)
+      const orientation = gridItem.ship.isHorizontal() ? 'horizontal' : 'vertical'
       if (x === first.x && y === first.y) {
-        itemDOM.classList.add('ship-part-start')
-      }
+        itemDOM.classList.add(getValidFrontShipImage(orientation))
+      } else
       if (!next) {
-        itemDOM.classList.add('ship-part-end')
+        itemDOM.classList.add(getValidBottomShipImage(orientation))
+      } else {
+        itemDOM.classList.add(getValidBodyShipImage())
       }
     }
   })
