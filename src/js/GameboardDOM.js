@@ -137,6 +137,19 @@ function requestToHideGameboard (topic, player) {
   PubSub.publishSync(TOPIC.HIDE_GAMEBOARD, player.enemyGameboardDOM)
 }
 
+export function getGridLocationByItem (item) {
+  let x = item.getAttribute('data-x')
+  let y = item.getAttribute('data-y')
+  if (!x || !y) return
+  x = parseInt(x)
+  y = parseInt(y)
+  return { x, y }
+}
+
+function getValidHittedImage () {
+  return 'bg-hitted'
+}
+
 function getMainDOM () {
   let mainDOM = document.getElementById('gameboards')
   if (!mainDOM) {
