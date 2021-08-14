@@ -1,8 +1,12 @@
 import PubSub from 'pubsub-js'
 import { TOPIC } from './topics'
-import { getValidTopParentById } from './utils'
 import { getShips } from './Ships'
-import { buildGameboard, createShipSetup } from './ShipSetup'
+import {
+  buildGameboard,
+  createShipSetup,
+  rotateShipsInContainer,
+  buildShipsContainer
+} from './ShipSetup'
 import { isValidComputerPlayer } from './PlayerValidator'
 
 /* @validateFlow
@@ -46,8 +50,7 @@ function listenSubmitClick (target, playerList, event) {
     alert('you need to place all ships first.')
     return
   }
-  const main = getValidTopParentById('ships-setup', event.target)
-  main.remove()
+  getMainShipSetup().remove()
   const nextPlayer = playerList.filter(
     player => !player.getGameboard().hasPlacedAllShips(getShips().length)
   )[0]
@@ -60,24 +63,46 @@ function listenSubmitClick (target, playerList, event) {
 function listenRandomSchemeClick (player, playerList, event) {
   player.getGameboard().reset()
   player.buildGameboardScheme(getShips())
-  const main = getValidTopParentById('ships-setup', event.target)
-  const gameboard = main.querySelector('.grid-container')
-  const ships = main.querySelector('#ships')
+  const main = getMainShipSetup()
+  const ships = getShipsContainer()
   Array.from(ships.children).forEach(item => item.remove())
-  if (gameboard) gameboard.remove()
   buildGameboard(main, player)
 }
 
 function listenRotateClick (player, playerList, event) {
-  const main = getValidTopParentById('ships-setup', event.target)
-  const ships = main.querySelector('#ships')
-  let newValue = ships.getAttribute('rotate')
+  const ships = getShipsContainer()
+  let newValue = ships.getAttribute('data-orientation')
   newValue = newValue === 'vertical' ? 'horizontal' : 'vertical'
 
-  ships.setAttribute('rotate', newValue)
+  ships.setAttribute('data-orientation', newValue)
+  rotateShipsInContainer(newValue)
+}
+
+function getMainShipSetup () {
+  return document.getElementById('ships-setup')
+}
+
+function getShipsContainer () {
+  return document.getElementById('ships')
+}
+
+export function getCurrentOrientation () {
+  const ships = getShipsContainer()
+  if (ships) return ships.getAttribute('data-orientation')
+}
+
+function listenResetClick (player, event) {
+  player.getGameboard().reset()
+  const main = getMainShipSetup()
+  buildGameboard(main, player)
+  buildShipsContainer(main, getCurrentOrientation())
 }
 
 PubSub.subscribe(TOPIC.SETUP_SHIPS, listenToShipSetup)
-// todo draggable functions here
 
-export { listenSubmitClick, listenRotateClick, listenRandomSchemeClick }
+export {
+  listenSubmitClick,
+  listenRotateClick,
+  listenRandomSchemeClick,
+  listenResetClick
+}
