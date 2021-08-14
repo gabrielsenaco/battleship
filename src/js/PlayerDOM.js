@@ -34,6 +34,10 @@ export const PlayerGame = (object, bot) => {
 
 function listenToGameboardClick (object, event) {
   const item = event.target
+  if (item.classList.contains('hitted')) {
+    alert('please, choose different position to click.')
+    return
+  }
   if (item.hasAttribute('data-x') && item.hasAttribute('data-y')) {
     const x = parseInt(item.getAttribute('data-x'))
     const y = parseInt(item.getAttribute('data-y'))
