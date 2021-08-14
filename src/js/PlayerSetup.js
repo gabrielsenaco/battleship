@@ -21,7 +21,7 @@ const createPlayerSetupForm = listener => {
   }
 
   function _buildPlayerSetup (parentNode) {
-    const title = createElement('h3', null, null, parentNode)
+    const title = createElement('h2', 'title', null, parentNode)
     title.textContent = 'Players'
 
     const players = createElement('ol', null, null, parentNode)
@@ -30,10 +30,10 @@ const createPlayerSetupForm = listener => {
       const item = createElement('li', null, null, players)
       const playerName = `player-${i}-name`
       const playerBot = `player-${i}-bot`
-      const labelName = createElement('label', null, null, item)
+      const labelName = createElement('label', 'player-label', null, item)
       labelName.setAttribute('for', playerName)
       labelName.textContent = 'Username'
-      const inputName = createElement('input', null, null, labelName)
+      const inputName = createElement('input', null, null, item)
       inputName.setAttribute('type', 'text')
       inputName.setAttribute('name', playerName)
       inputName.setAttribute('id', playerName)
@@ -50,9 +50,9 @@ const createPlayerSetupForm = listener => {
   }
 
   function _buildStartGame (parentNode) {
-    const title = createElement('h3', null, null, parentNode)
+    const title = createElement('h3', 'subtitle', null, parentNode)
     title.textContent = 'Start game'
-    const button = createElement('button', null, null, parentNode)
+    const button = createElement('button', 'btn confirm-form', null, parentNode)
     button.setAttribute('type', 'submit')
     button.textContent = 'Start game'
   }
