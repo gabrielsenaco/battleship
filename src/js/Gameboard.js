@@ -209,8 +209,8 @@ export const Gameboard = () => {
     grid = _build()
   }
 
-  function hasPlacedAllShips (amount_ships) {
-    return getShipsPoints().length === amount_ships
+  function hasPlacedAllShips (amountShips) {
+    return getShipsPoints().length === amountShips
   }
 
   return {
@@ -224,6 +224,7 @@ export const Gameboard = () => {
     getNextShipPart,
     getFirstShipPartPosition,
     reset,
-    hasPlacedAllShips
+    hasPlacedAllShips,
+    tryPlaceShip
   }
 }
