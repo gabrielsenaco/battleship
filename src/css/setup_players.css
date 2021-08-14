@@ -41,14 +41,17 @@
 }
 
 .btn.confirm-form{
+  color: var(--color-white);
+  border: none;
   padding: 1rem;
   min-width: 100%;
   margin-top: 1rem;
   border-radius: 1rem;
   margin-left: 0 !important;
+  box-shadow: 0px 0.25rem 0px var(--color-light-green) !important;
 }
 
-.btn:hover {
-  box-shadow: var(--shadow-card-hover);
-  color: var(--color-white);
+.btn.confirm-form:hover {
+  background-color: var(--color-green);
 }
+

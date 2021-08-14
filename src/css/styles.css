@@ -65,6 +65,11 @@ body {
   margin: 1rem 1rem;
 }
 
+.btn:hover {
+  box-shadow: var(--shadow-card-hover);
+  color: var(--color-white);
+}
+
 .btn:first-child {
   margin-left: 0;
 }
