@@ -25,7 +25,7 @@ function init (topic, playerList) {
     const playerGame = PlayerGame(player, isBot)
     players.push(playerGame)
   }
-
+  PubSub.publish(TOPIC.START_GAME_CONFIRMATION, { started: true })
   loopGame(players[0], players[1], null, 0)
 }
 
@@ -33,14 +33,11 @@ async function loopGame (
   player1,
   player2,
   lastPlayerTurn,
-  steps,
-  winner = false
+  steps
 ) {
-  if (winner) return
   if (!lastPlayerTurn) {
     lastPlayerTurn = getRandomTrueFalse() ? player1 : player2
   }
-  console.log('Game Looping....', { player1, player2, lastPlayerTurn, steps })
 
   const playerTurn = lastPlayerTurn === player1 ? player2 : player1
   let playerOptionResponse
@@ -63,12 +60,9 @@ async function loopGame (
   updateGameboards(playerTurn, lastPlayerTurn)
 
   const winnerResponse = getWinner(player1.object, player2.object)
-  if (winnerResponse === 'TIE') {
-    alert('TIE GAME!' + winnerResponse)
-    return
-  } else if (winnerResponse !== null) {
-    console.log(winnerResponse)
-    alert('HAS WINNER HERE!' + winnerResponse.getName())
+
+  if (winnerResponse) {
+    PubSub.publish(TOPIC.GAME_END, winnerResponse)
     return
   }
 
