@@ -69,7 +69,7 @@ function _buildShip (shipName, shipLength, parentNode, orientation, id = 0) {
 
 function buildShiSetupTitle (parentNode, player) {
   const title = createElement('h2', 'title', null, parentNode)
-  title.textContent = `${player.getName()}, setup your ships`
+  title.textContent = `${player.getName()}, place your ships`
 }
 
 function buildActionButtons (parentNode, player, playerList) {
@@ -102,7 +102,12 @@ function buildShipSetupFinishTitle (parentNode, hasNextPlayer) {
 }
 
 function buildSubmitButton (parentNode, player, playerList, hasNextPlayer) {
-  const button = createElement('button', 'btn start-game-btn confirm-form', null, parentNode)
+  const button = createElement(
+    'button',
+    'btn start-game-btn confirm-form',
+    null,
+    parentNode
+  )
   button.textContent = hasNextPlayer ? 'Next setup' : 'Start game'
   button.addEventListener(
     'click',
