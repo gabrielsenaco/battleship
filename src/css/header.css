@@ -1,0 +1,28 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 100%;
+  background-color: var(--color-black);
+  box-shadow: var(--shadow-card);
+}
+
+header > * {
+  margin: 1rem;
+  color: var(--color-white);
+}
+
+header h1 {
+  font-size: 2.3rem;
+}
+
+header a {
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+header a:hover {
+  color: var(--color-green);
+}
