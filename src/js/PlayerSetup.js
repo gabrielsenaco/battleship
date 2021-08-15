@@ -12,10 +12,19 @@ const createPlayerSetupForm = listener => {
     )
   }
 
+  function _removeOldGameboard () {
+    const element = document.getElementById('gameboards')
+    if (element) element.remove()
+  }
+
   function _build () {
     _removeOldForms()
+    _removeOldGameboard()
     form = createElement('form', null, 'setup-players', null)
-    document.body.insertBefore(form, document.body.children[0])
+    document.body.insertBefore(
+      form,
+      document.body.children[0].nextElementSibling || document.body.children[0]
+    )
     _buildPlayerSetup(form)
     _buildStartGame(form)
   }
