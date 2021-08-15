@@ -57,13 +57,8 @@ export const Player = name => {
 }
 
 export const ComputerPlayer = name => {
-  const {
-    attack,
-    getGameboard,
-    getEnemyGameboard,
-    getName,
-    buildGameboardScheme
-  } = Player(name)
+  const prototype = Player(name)
+  const baseAttack = prototype.attack
 
   function betterRandomAttack () {
     let response = {}
@@ -71,21 +66,77 @@ export const ComputerPlayer = name => {
 
     while (!position || position.hitted) {
       response = { x: getRandomPosition(), y: getRandomPosition() }
-      position = getEnemyGameboard().getPosition(response.x, response.y)
+      position = prototype
+        .getEnemyGameboard()
+        .getPosition(response.x, response.y)
     }
     return response
   }
 
-  function betterAttack () {
+  let lastSuccessAttack = { x: null, y: null }
+
+  function attack (response, x, y, callback) {
+    baseAttack.call(null, response, x, y)
+    if (response.ship) {
+      lastSuccessAttack = { x: response.x, y: response.y }
+    }
+  }
+
+  function getEmptyAdjacents (x, y) {
+    const emptyAdjacents = []
+    const adjacents = [
+      {
+        x: x + 1,
+        y
+      },
+      {
+        x: x - 1,
+        y
+      },
+      {
+        x,
+        y: y + 1
+      },
+      {
+        x,
+        y: y - 1
+      }
+    ]
+
+    for (const adjacent of adjacents) {
+      const position = prototype
+        .getEnemyGameboard()
+        .getPosition(adjacent.x, adjacent.y)
+      if (position && !position.hitted) {
+        emptyAdjacents.push({ x: adjacent.x, y: adjacent.y })
+      }
+    }
+
+    return emptyAdjacents
+  }
+
+  function betterSmartAttack () {
+    if (lastSuccessAttack.x === null && lastSuccessAttack.y === null) {
+      return betterRandomAttack()
+    }
+    try {
+      const allShipParts = prototype.getEnemyGameboard().getAllShipPartsInGrid()
+      for (const part of allShipParts) {
+        const emptys = getEmptyAdjacents(part.x, part.y)
+        if (emptys.length > 0) {
+          return emptys[0]
+        }
+      }
+    } catch (err) {
+      return betterRandomAttack()
+    }
+
     return betterRandomAttack()
   }
 
-  return {
-    attack,
-    getGameboard,
-    getEnemyGameboard,
-    buildGameboardScheme,
-    betterAttack,
-    getName
+  function betterAttack () {
+    return betterSmartAttack()
   }
+
+  return Object.assign(prototype, { attack, betterAttack })
 }
