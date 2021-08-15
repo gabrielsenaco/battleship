@@ -1,0 +1,27 @@
+#log {
+  position: fixed;
+  bottom: 0;
+  display: block;
+  width: 80%;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background-color: var(--color-black);
+  border: 0.2rem solid var(--color-dark-blue);
+  box-shadow: 0.2rem 0.2rem 0 0 var(--color-dark-blue);
+  border-bottom: none;
+  border-right: none;
+  border: none;
+  border-radius: 1rem;
+  color: var(--color-white);
+  font-size: 1.2rem;
+  z-index: 2000;
+}
+
+#log[data-type='error'] {
+  box-shadow: 0.2rem 0.2rem 0 0 var(--color-red);
+}
+
+#log[data-type='success'] {
+  box-shadow: 0.2rem 0.2rem 0 0 var(--color-green);
+}
