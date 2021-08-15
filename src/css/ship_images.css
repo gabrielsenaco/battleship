@@ -26,6 +26,7 @@
   background: url('assets/ship-hitted.png');
 }
 
-.bg-hitted, .bg-ship_hitted {
+.bg-hitted,
+.bg-ship_hitted {
   background-position: center !important;
 }

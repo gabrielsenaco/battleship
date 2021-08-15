@@ -25,13 +25,13 @@
   margin-bottom: 2rem;
 }
 
-#setup-players .player-label{
+#setup-players .player-label {
   text-transform: uppercase;
   margin-bottom: 0.3rem;
   display: block;
 }
 
-#setup-players input{
+#setup-players input {
   outline: none;
   background: none;
   border: none;
@@ -40,7 +40,7 @@
   color: var(--color-white);
 }
 
-.btn.confirm-form{
+.btn.confirm-form {
   color: var(--color-white);
   border: none;
   padding: 1rem;
@@ -54,4 +54,3 @@
 .btn.confirm-form:hover {
   background-color: var(--color-green);
 }
-

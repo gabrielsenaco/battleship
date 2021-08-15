@@ -1,22 +1,25 @@
-@import "reset.css";
+@import 'reset.css';
 @import 'gameboard.css';
 @import 'ship_setup.css';
 @import 'ship_images';
-@import 'pass_device.css';
+@import 'page.css';
 @import 'setup_players.css';
+@import 'log';
+@import 'header';
 
 :root {
   --grid-item-size: 1.5625rem;
   --grid-size: 15.625rem;
 
   --color-black: #293241;
-  --color-white: #FAF9F9;
-  --color-dark-blue: #001D3D;
-  --color-light-blue: #118AB2;
-  --color-water-blue: #1CA3EC;
-  --color-brown: #CB997E;
+  --color-white: #faf9f9;
+  --color-dark-blue: #001d3d;
+  --color-light-blue: #118ab2;
+  --color-water-blue: #1ca3ec;
+  --color-brown: #cb997e;
   --color-green: #2a9d8f;
   --color-light-green: #46cebd;
+  --color-red: red;
 
   --shadow-card: 0 0.38rem 0.38rem rgba(0, 0, 0, 0.25);
   --shadow-card-hover: 0 0.2rem 0.2rem var(--color-light-blue);
@@ -43,10 +46,11 @@ body {
   font-size: 2.25rem;
 }
 .subtitle {
-  font-size: 2.15rem;
+  font-size: 2rem;
 }
 
-.title, .subtitle {
+.title,
+.subtitle {
   margin: 1rem 0;
   text-transform: uppercase;
   color: var(--color-dark-blue);

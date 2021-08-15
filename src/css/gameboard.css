@@ -1,7 +1,8 @@
 .grid-container {
   display: grid;
-  grid-template-areas: '. n'
-                       'l g';
+  grid-template-areas:
+    '. n'
+    'l g';
   grid-gap: 0;
   max-width: var(--grid-size);
   max-height: var(--grid-size);
@@ -27,7 +28,11 @@
   display: grid;
   grid-template-columns: repeat(10, var(--grid-item-size));
   grid-template-rows: repeat(10, var(--grid-item-size));
-background: radial-gradient(50% 50% at 50% 50%, #2389DA 0%, rgba(28, 163, 236, 0.5) 100%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #2389da 0%,
+    rgba(28, 163, 236, 0.5) 100%
+  );
   max-width: var(--grid-size);
 }
 
@@ -88,7 +93,7 @@ body[game='started'] .grid-item-index {
 }
 
 .gameboard-section {
-  display:   flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -106,7 +111,7 @@ body[game='started'] .grid-item-index {
   left: 0;
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .gameboard-section.owner {
     display: block;
     position: relative;
