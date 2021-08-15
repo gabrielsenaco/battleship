@@ -96,6 +96,12 @@ function attackGameboard (playerTurn, lastPlayerTurn, playerOptionResponse) {
   const attackResponse = lastPlayerTurn.object
     .getGameboard()
     .receiveAttack(playerOptionResponse.x, playerOptionResponse.y)
+  if (attackResponse.ship && attackResponse.hitted) {
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message: "You attacked a part of the ship, let's destroy this ship!",
+      type: 'success'
+    })
+  }
   playerTurn.object.attack(attackResponse, attackResponse.x, attackResponse.y)
 }
 
