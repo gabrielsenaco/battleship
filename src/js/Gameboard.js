@@ -135,6 +135,16 @@ export const Gameboard = () => {
     return grid[x][y]
   }
 
+  function getAllShipPartsInGrid () {
+    const points = getShipsPoints()
+    const partsList = []
+
+    for (const point of points) {
+      partsList.push(getShipPartsInGrid(point.ship))
+    }
+
+    return partsList.flat()
+  }
   function getShipPartsInGrid (ship) {
     const shipParts = []
     for (let x = 0; x < grid.length; x++) {
@@ -222,6 +232,7 @@ export const Gameboard = () => {
     getShipsPoints,
     getFlatGrid,
     getNextShipPart,
+    getAllShipPartsInGrid,
     getFirstShipPartPosition,
     reset,
     hasPlacedAllShips,

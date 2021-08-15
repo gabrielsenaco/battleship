@@ -74,7 +74,7 @@ async function loopGame (player1, player2, lastPlayerTurn, steps) {
   }
 
   lastPlayerTurn = playerTurn
-  setTimeout(() => loopGame(player1, player2, lastPlayerTurn, ++steps), 1500)
+  setTimeout(() => loopGame(player1, player2, lastPlayerTurn, ++steps), 10)
 }
 
 function getWinner (player1, player2) {
