@@ -20,8 +20,11 @@ export function createElement (tag, className, id, parentNode = null) {
 }
 
 export function getValidTopParentById (id, startNode, depth = 0) {
-  return getValidTopParentByValidator((element) => 
-    element.id && element.id.toUpperCase() === id.toUpperCase(), startNode, depth)
+  return getValidTopParentByValidator(
+    element => element.id && element.id.toUpperCase() === id.toUpperCase(),
+    startNode,
+    depth
+  )
 }
 
 export function getValidTopParentByValidator (validator, startNode, depth = 0) {

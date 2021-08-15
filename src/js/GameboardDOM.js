@@ -1,7 +1,12 @@
 import PubSub from 'pubsub-js'
 import { TOPIC } from './topics'
 import { createElement } from './utils'
-import {getValidBottomShipImage, getValidFrontShipImage, getValidBodyShipImage, getValidHittedShipImage} from './ShipDOM'
+import {
+  getValidBottomShipImage,
+  getValidFrontShipImage,
+  getValidBodyShipImage,
+  getValidHittedShipImage
+} from './ShipDOM'
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
 export function buildGameboardDOM (
@@ -97,11 +102,12 @@ export function updateGameboardDOMByModel (gameboardDOM, gameBoardModel) {
       }
       const next = gameBoardModel.getNextShipPart(gridItem.ship, x, y)
       const first = gameBoardModel.getFirstShipPartPosition(gridItem.ship)
-      const orientation = gridItem.ship.isHorizontal() ? 'horizontal' : 'vertical'
+      const orientation = gridItem.ship.isHorizontal()
+        ? 'horizontal'
+        : 'vertical'
       if (x === first.x && y === first.y) {
         itemDOM.classList.add(getValidFrontShipImage(orientation))
-      } else
-      if (!next) {
+      } else if (!next) {
         itemDOM.classList.add(getValidBottomShipImage(orientation))
       } else {
         itemDOM.classList.add(getValidBodyShipImage())
