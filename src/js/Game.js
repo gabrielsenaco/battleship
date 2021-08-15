@@ -29,17 +29,24 @@ function init (topic, playerList) {
   loopGame(players[0], players[1], null, 0)
 }
 
-async function loopGame (
-  player1,
-  player2,
-  lastPlayerTurn,
-  steps
-) {
+async function loopGame (player1, player2, lastPlayerTurn, steps) {
   if (!lastPlayerTurn) {
     lastPlayerTurn = getRandomTrueFalse() ? player1 : player2
   }
 
   const playerTurn = lastPlayerTurn === player1 ? player2 : player1
+
+  if (steps === 0) {
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message: `Game staterd! ${playerTurn.object.getName()} starts`,
+      type: 'success'
+    })
+  } else {
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message: `Now it's ${playerTurn.object.getName()}'s turn`
+    })
+  }
+
   let playerOptionResponse
 
   if (someIsBot(playerTurn, lastPlayerTurn)) {
