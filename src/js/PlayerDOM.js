@@ -35,7 +35,11 @@ export const PlayerGame = (object, bot) => {
 function listenToGameboardClick (object, event) {
   const item = event.target
   if (item.classList.contains('hitted')) {
-    alert('please, choose different position to click.')
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message:
+        'You have already selected this position, please select another position.',
+      type: 'error'
+    })
     return
   }
   if (item.hasAttribute('data-x') && item.hasAttribute('data-y')) {
