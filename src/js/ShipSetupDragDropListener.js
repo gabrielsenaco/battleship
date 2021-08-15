@@ -1,3 +1,5 @@
+import PubSub from 'pubsub-js'
+import { TOPIC } from './topics'
 import { getCurrentOrientation } from './ShipSetupListener'
 import { Ship } from './Ship'
 import { getGridLocationByItem } from './GameboardDOM'
@@ -80,7 +82,10 @@ function listenDrop (player, event) {
     const shipElement = document.querySelector(`.ship[data-id='${data.id}']`)
     if (shipElement) shipElement.remove()
   } catch (err) {
-    console.log('error found', err)
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message: `Error found: ${err.message}`,
+      type: 'error'
+    })
   }
 }
 

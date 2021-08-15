@@ -40,14 +40,20 @@ function listenToShipSetup (topic, playerList) {
   }
 
   if (!validateFlow(nextPlayer, playerList)) return
-
+  PubSub.publish(TOPIC.SEND_LOG, {
+    message: `Now it's time for player ${nextPlayer.getName()} to build his board scheme.`
+  })
   const hasNextPlayer = nextPlayers.length > 1
   createShipSetup(nextPlayer, playerList, hasNextPlayer)
 }
 
 function listenSubmitClick (target, playerList, event) {
   if (!target.getGameboard().hasPlacedAllShips(getShips().length)) {
-    alert('you need to place all ships first.')
+    PubSub.publish(TOPIC.SEND_LOG, {
+      message:
+        'You need to place all ships to continue. Hint: clicking on Random button, will setup a random gameboard scheme for you',
+      type: 'error'
+    })
     return
   }
   getMainShipSetup().remove()
