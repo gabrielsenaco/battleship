@@ -13,8 +13,10 @@ This project was created to complete the task [Project: Battleship](https://www.
 The goal is to do something using Test Driven Development first. With that in mind, I elaborated all my code logic(non visual part) using TDD (You can run the tests!).
 
 ## Play it now
-[Play now clicking here](https://gabesenacom.github.com/battleship)
-https://gabesenacom.github.com/battleship
+[Play now clicking here](https://gabesenacom.github.io/battleship/)
+
+Full link:
+https://gabesenacom.github.io/battleship/
 
 ### Image descriptions
 
