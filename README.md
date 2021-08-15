@@ -19,11 +19,11 @@ https://gabesenacom.github.com/battleship
 ### Image descriptions
 
 #### Ship hitted
-![Ship hitted](readme_images/ship-hitted.png)
+![Ship hitted](src/assets/ship-hitted.png)
 This represents hit in some ship
 
 #### Ocean hitted
-![Ocean hitted](readme_images/ocean-hitted.png)
+![Ocean hitted](src/assets/ocean-hitted.png)
 This represents hit in ocean
 
 ## Technologies used

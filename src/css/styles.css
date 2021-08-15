@@ -28,7 +28,7 @@
 
 body {
   font-family: 'Electrolize', sans-serif;
-  background: url('assets/wave.svg');
+  background: url('../assets/wave.svg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-attachment: fixed;
