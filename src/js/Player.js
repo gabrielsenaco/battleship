@@ -1,6 +1,6 @@
 import { Gameboard } from './Gameboard'
 import { Ship } from './Ship'
-import { getRandomTrueFalse } from './utils'
+import { getRandomTrueFalse, getAdjacentsCoords } from './utils'
 
 function getRandomPosition () {
   return Math.round(Math.random() * 9)
@@ -57,8 +57,13 @@ export const Player = name => {
 }
 
 export const ComputerPlayer = name => {
-  const prototype = Player(name)
-  const baseAttack = prototype.attack
+  const {
+    attack,
+    getGameboard,
+    getEnemyGameboard,
+    getName,
+    buildGameboardScheme
+  } = Player(name)
 
   function betterRandomAttack () {
     let response = {}
@@ -66,67 +71,76 @@ export const ComputerPlayer = name => {
 
     while (!position || position.hitted) {
       response = { x: getRandomPosition(), y: getRandomPosition() }
-      position = prototype
-        .getEnemyGameboard()
-        .getPosition(response.x, response.y)
+      position = getEnemyGameboard().getPosition(response.x, response.y)
     }
     return response
   }
 
-  let lastSuccessAttack = { x: null, y: null }
-
-  function attack (response, x, y, callback) {
-    baseAttack.call(null, response, x, y)
-    if (response.ship) {
-      lastSuccessAttack = { x: response.x, y: response.y }
+  function getAdjacents (x, y, horizontal, vertical) {
+    const adjacents = []
+    const adjacentsCoords = getAdjacentsCoords(x, y, horizontal, vertical)
+    for (const adjacent of adjacentsCoords) {
+      if (
+        adjacent.x >= 0 &&
+        adjacent.x < 10 &&
+        adjacent.y < 10 &&
+        adjacent.y >= 0
+      ) {
+        const position = getEnemyGameboard().getPosition(adjacent.x, adjacent.y)
+        if (position) {
+          adjacents.push({
+            x: adjacent.x,
+            y: adjacent.y,
+            hitted: position.hitted,
+            ship: position.ship
+          })
+        }
+      }
     }
+
+    return adjacents
+  }
+
+  function getOrientation (x, y) {
+    const adjacents = getAdjacents(x, y, true, true)
+    const vertical = adjacents.filter(point => point.y === y && point.ship)
+    const horizontal = adjacents.filter(point => point.x === x && point.ship)
+
+    if (horizontal.length > vertical.length) {
+      return { horizontal: true, vertical: false }
+    }
+
+    if (horizontal.length < vertical.length) {
+      return { horizontal: false, vertical: true }
+    }
+
+    return { horizontal: true, vertical: true }
   }
 
   function getEmptyAdjacents (x, y) {
-    const emptyAdjacents = []
-    const adjacents = [
-      {
-        x: x + 1,
-        y
-      },
-      {
-        x: x - 1,
-        y
-      },
-      {
-        x,
-        y: y + 1
-      },
-      {
-        x,
-        y: y - 1
-      }
-    ]
+    const orientation = getOrientation(x, y)
 
-    for (const adjacent of adjacents) {
-      const position = prototype
-        .getEnemyGameboard()
-        .getPosition(adjacent.x, adjacent.y)
-      if (position && !position.hitted) {
-        emptyAdjacents.push({ x: adjacent.x, y: adjacent.y })
-      }
-    }
-
-    return emptyAdjacents
+    const adjacents = getAdjacents(
+      x,
+      y,
+      orientation.horizontal,
+      orientation.vertical
+    )
+    return adjacents.filter(point => !point.hitted)
   }
 
   function betterSmartAttack () {
-    if (lastSuccessAttack.x === null && lastSuccessAttack.y === null) {
-      return betterRandomAttack()
-    }
     try {
-      const allShipParts = prototype.getEnemyGameboard().getAllShipPartsInGrid()
+      const allShipParts = getEnemyGameboard().getAllShipPartsInGrid()
+      const emptyList = []
       for (const part of allShipParts) {
         const emptys = getEmptyAdjacents(part.x, part.y)
-        if (emptys.length > 0) {
-          return emptys[0]
-        }
+        emptyList.push(emptys)
       }
+
+      const better = emptyList.sort((a, b) => (a.length < b.length ? 1 : -1))[0]
+
+      if (better && better.length > 0) return better[0]
     } catch (err) {
       return betterRandomAttack()
     }
@@ -138,5 +152,12 @@ export const ComputerPlayer = name => {
     return betterSmartAttack()
   }
 
-  return Object.assign(prototype, { attack, betterAttack })
+  return {
+    attack,
+    getGameboard,
+    getEnemyGameboard,
+    getName,
+    buildGameboardScheme,
+    betterAttack
+  }
 }
