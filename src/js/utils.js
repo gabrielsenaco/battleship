@@ -34,3 +34,35 @@ export function getValidTopParentByValidator (validator, startNode, depth = 0) {
   }
   return getValidTopParentByValidator(validator, startNode.parentNode, ++depth)
 }
+
+export function getAdjacentsCoords (x, y, vertical, horizontal) {
+  const adjacents = []
+
+  if (horizontal) {
+    adjacents.push([
+      {
+        x: x + 1,
+        y
+      },
+      {
+        x: x - 1,
+        y
+      }
+    ])
+  }
+
+  if (vertical) {
+    adjacents.push([
+      {
+        x,
+        y: y + 1
+      },
+      {
+        x,
+        y: y - 1
+      }
+    ])
+  }
+
+  return adjacents.flat()
+}
