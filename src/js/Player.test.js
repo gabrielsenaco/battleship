@@ -76,13 +76,15 @@ test('AI never attack same place on the enemy gameboard', () => {
   ).toBe(100)
 })
 
-test('AI CAN FIND ALL SHIPS AT LEAST 100 CLICKS', () => {
+test('AI can attack all ship parts with maximum 3 attacks when know the some part of ship.', () => {
   const ai = ComputerPlayer()
   const enemy = Player()
   enemy.getGameboard().placeShip(Ship('testing', 3, true), 6, 3)
-  enemy.getGameboard().placeShip(Ship('testing 2', 3, false), 1, 5)
 
-  for (let i = 0; i < 100; i++) {
+  const response = enemy.getGameboard().receiveAttack(6, 3)
+  ai.attack(response, 6, 3)
+
+  for (let i = 0; i < 2; i++) {
     const { x, y } = ai.betterAttack()
     const response = enemy.getGameboard().receiveAttack(x, y)
     ai.attack(response, x, y)
@@ -92,12 +94,6 @@ test('AI CAN FIND ALL SHIPS AT LEAST 100 CLICKS', () => {
     enemy
       .getGameboard()
       .getPosition(6, 3)
-      .ship.getHits()
-  ).toBe(3)
-  expect(
-    enemy
-      .getGameboard()
-      .getPosition(1, 5)
       .ship.getHits()
   ).toBe(3)
   expect(
