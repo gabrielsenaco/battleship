@@ -76,26 +76,34 @@ test('AI never attack same place on the enemy gameboard', () => {
   ).toBe(100)
 })
 
-/* TODO - BUILD AN AI
-test.only('When AI found a Ship part, it try find all parts first.', () => {
+test('AI CAN FIND ALL SHIPS AT LEAST 100 CLICKS', () => {
   const ai = ComputerPlayer()
   const enemy = Player()
-  enemy.getGameboard().placeShip(Ship(3), 6, 3)
-  const { x, y } = { x: 4, y: 3 }
-  let response = enemy.getGameboard().receiveAttack(x, y)
-  //expect(response).toBeFalsy()
-  ai.attack(response, x, y)
-  let safeBreak = 0
-  while (response.ship && !response.ship.isSunk()) {
+  enemy.getGameboard().placeShip(Ship('testing', 3, true), 6, 3)
+  enemy.getGameboard().placeShip(Ship('testing 2', 3, false), 1, 5)
+
+  for (let i = 0; i < 100; i++) {
     const { x, y } = ai.betterAttack()
-    response = enemy.getGameboard().receiveAttack(x, y)
+    const response = enemy.getGameboard().receiveAttack(x, y)
     ai.attack(response, x, y)
-    ++safeBreak
-    if (safeBreak > 100) {
-      break
-    }
   }
-  expect(response.ship).toBeTruthy()
-  expect(response.ship.isSunk()).toBeTruthy()
+
+  expect(
+    enemy
+      .getGameboard()
+      .getPosition(6, 3)
+      .ship.getHits()
+  ).toBe(3)
+  expect(
+    enemy
+      .getGameboard()
+      .getPosition(1, 5)
+      .ship.getHits()
+  ).toBe(3)
+  expect(
+    enemy
+      .getGameboard()
+      .getPosition(6, 3)
+      .ship.isSunk()
+  ).toBeTruthy()
 })
-*/
