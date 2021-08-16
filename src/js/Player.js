@@ -1,6 +1,6 @@
 import { Gameboard } from './Gameboard'
 import { Ship } from './Ship'
-import { getRandomTrueFalse } from './utils'
+import { getRandomTrueFalse, getAdjacentsCoords } from './utils'
 
 function getRandomPosition () {
   return Math.round(Math.random() * 9)
@@ -76,16 +76,88 @@ export const ComputerPlayer = name => {
     return response
   }
 
-  function betterAttack () {
+  function getAdjacents (x, y, horizontal, vertical) {
+    const adjacents = []
+    const adjacentsCoords = getAdjacentsCoords(x, y, horizontal, vertical)
+    for (const adjacent of adjacentsCoords) {
+      if (
+        adjacent.x >= 0 &&
+        adjacent.x < 10 &&
+        adjacent.y < 10 &&
+        adjacent.y >= 0
+      ) {
+        const position = getEnemyGameboard().getPosition(adjacent.x, adjacent.y)
+        if (position) {
+          adjacents.push({
+            x: adjacent.x,
+            y: adjacent.y,
+            hitted: position.hitted,
+            ship: position.ship
+          })
+        }
+      }
+    }
+
+    return adjacents
+  }
+
+  function getOrientation (x, y) {
+    const adjacents = getAdjacents(x, y, true, true)
+    const vertical = adjacents.filter(point => point.y === y && point.ship)
+    const horizontal = adjacents.filter(point => point.x === x && point.ship)
+
+    if (horizontal.length > vertical.length) {
+      return { horizontal: true, vertical: false }
+    }
+
+    if (horizontal.length < vertical.length) {
+      return { horizontal: false, vertical: true }
+    }
+
+    return { horizontal: true, vertical: true }
+  }
+
+  function getEmptyAdjacents (x, y) {
+    const orientation = getOrientation(x, y)
+
+    const adjacents = getAdjacents(
+      x,
+      y,
+      orientation.horizontal,
+      orientation.vertical
+    )
+    return adjacents.filter(point => !point.hitted)
+  }
+
+  function betterSmartAttack () {
+    try {
+      const allShipParts = getEnemyGameboard().getAllShipPartsInGrid()
+      const emptyList = []
+      for (const part of allShipParts) {
+        const emptys = getEmptyAdjacents(part.x, part.y)
+        emptyList.push(emptys)
+      }
+
+      const better = emptyList.sort((a, b) => (a.length < b.length ? 1 : -1))[0]
+
+      if (better && better.length > 0) return better[0]
+    } catch (err) {
+      return betterRandomAttack()
+    }
+
     return betterRandomAttack()
+  }
+
+  function betterAttack () {
+    return betterSmartAttack()
   }
 
   return {
     attack,
     getGameboard,
     getEnemyGameboard,
+    getName,
     buildGameboardScheme,
-    betterAttack,
-    getName
+    betterAttack
   }
 }
