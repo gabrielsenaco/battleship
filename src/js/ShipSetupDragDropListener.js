@@ -53,7 +53,17 @@ function listenDragStart (event) {
   const id = parseInt(target.getAttribute('data-id'))
 
   const shipData = ShipData(name, length, orientation, id)
+  dataTransfer.setDragImage(target, 0, 10)
   buildShipData(dataTransfer, shipData)
+}
+
+function clearDragHover (element) {
+  element.classList.remove('drag-hover', 'error')
+}
+
+function setDragHover (element, error = false) {
+  element.classList.add('drag-hover')
+  if (error) element.classList.add('error')
 }
 
 function listenDragOver (player, event) {
@@ -64,9 +74,15 @@ function listenDragOver (player, event) {
   try {
     const { ship } = getShipDataByDataTransfer(dataTransfer)
     player.getGameboard().tryPlaceShip(ship, x, y)
+    setDragHover(target)
   } catch (err) {
+    setDragHover(target, true)
     dataTransfer.dropEffect = 'none'
   }
+}
+
+function listenDragLeave (event) {
+  clearDragHover(event.target)
 }
 
 function listenDrop (player, event) {
@@ -89,4 +105,4 @@ function listenDrop (player, event) {
   }
 }
 
-export { listenDragStart, listenDrop, listenDragOver }
+export { listenDragStart, listenDrop, listenDragOver, listenDragLeave }

@@ -10,7 +10,8 @@ import {
 import {
   listenDragStart,
   listenDrop,
-  listenDragOver
+  listenDragOver,
+  listenDragLeave
 } from './ShipSetupDragDropListener'
 import { setShipComponentImage } from './ShipDOM'
 
@@ -29,6 +30,10 @@ export function buildGameboard (parentNode, player) {
   gameboard.grid.addEventListener(
     'dragover',
     listenDragOver.bind(event, player)
+  )
+  gameboard.grid.addEventListener(
+    'dragleave',
+    listenDragLeave
   )
   return gameboard
 }
