@@ -71,3 +71,11 @@
 .ship {
   margin: 0.5rem;
 }
+
+.grid-item.drag-hover{
+  background-color: var(--color-green) !important;
+}
+
+.grid-item.drag-hover.error {
+  background-color: var(--color-red) !important;
+}
