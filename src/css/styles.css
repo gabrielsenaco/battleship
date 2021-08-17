@@ -38,6 +38,10 @@ body {
   flex-direction: column;
 }
 
+* {
+  font-family: Electrolize, sans-serif !important;
+}
+
 .hidden {
   display: none !important;
 }
