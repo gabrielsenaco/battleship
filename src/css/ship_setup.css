@@ -72,7 +72,7 @@
   margin: 0.5rem;
 }
 
-.grid-item.drag-hover{
+.grid-item.drag-hover {
   background-color: var(--color-green) !important;
 }
 

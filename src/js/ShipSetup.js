@@ -31,10 +31,7 @@ export function buildGameboard (parentNode, player) {
     'dragover',
     listenDragOver.bind(event, player)
   )
-  gameboard.grid.addEventListener(
-    'dragleave',
-    listenDragLeave
-  )
+  gameboard.grid.addEventListener('dragleave', listenDragLeave)
   return gameboard
 }
 
@@ -119,6 +116,7 @@ function buildSubmitButton (parentNode, player, playerList, hasNextPlayer) {
     listenSubmitClick.bind(event, player, playerList)
   )
 }
+
 export const createShipSetup = (player, playerList, hasNextPlayer) => {
   function build () {
     const container = createElement('main', null, 'ships-setup', document.body)
